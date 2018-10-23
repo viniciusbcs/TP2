@@ -1,6 +1,8 @@
 var titulo = d3.select("h2")
                 .style("color", "blue")
                 .text("");
+
+
         
 d3.csv("teste.csv").then(function(data){  // Open file
     
@@ -13,6 +15,8 @@ d3.csv("teste.csv").then(function(data){  // Open file
     var total6 = 0; // NOROESTE
     var total7 = 0; // NORDESTE
     var total8 = 0; // NORTE
+
+    var totaisvec = [total0, total1, total2, total3, total4, total5, total6, total7, total8]; // Total de acidentes por regiao
 
     for(var counter = 0; counter < data.length; counter++) {
         if(data[counter].desc_regional == "OESTE"){
@@ -46,6 +50,9 @@ d3.csv("teste.csv").then(function(data){  // Open file
     console.log(total7);
     console.log(total8);
 
+    // Tipos de acidented por regiao:
+
+    // soma = OESTE
     var soma0 = 0; // CHOQUE MECANICO COM VITIMA
     var soma1 = 0; // ABALROAMENTO COM VITIMA
     var soma2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
@@ -146,7 +153,7 @@ d3.csv("teste.csv").then(function(data){  // Open file
         } else if(data[counter].desc_regional == "VENDANOVA" && data[counter].desc_tipo_acidente == "CAPOTAMENTO/TOMBAMENTOCOMVITIMA") {
             vendanova5 += 1;
         } else if(data[counter].desc_regional == "VENDANOVA" && data[counter].desc_tipo_acidente == "OUTROSCOMVITIMA") {
-            vandanova6 += 1;
+            vendanova6 += 1;
         } else if(data[counter].desc_regional == "PAMPULHA" && data[counter].desc_tipo_acidente == "CHOQUEMECANICOCOMVITIMA"){         // PAMPULHA
             pampulha0 += 1;
         } else if(data[counter].desc_regional == "PAMPULHA" && data[counter].desc_tipo_acidente == "ABALROAMENTOCOMVITIMA") {
@@ -248,7 +255,7 @@ d3.csv("teste.csv").then(function(data){  // Open file
         }
     }
     
-    var soma = [soma0, soma1, soma2, soma3, soma4, soma5, soma6, soma7];
+    var soma = [soma0, soma1, soma2, soma3, soma4, soma5, soma6];
     var vendanova = [vendanova0, vendanova1, vendanova2, vendanova3, vendanova4, vendanova5, vendanova6];
     var pampulha = [pampulha0, pampulha1, pampulha2, pampulha3, pampulha4, pampulha5, pampulha6];
     var centrosul = [centrosul0, centrosul1, centrosul2, centrosul3, centrosul4, centrosul5, centrosul6];
@@ -258,14 +265,8 @@ d3.csv("teste.csv").then(function(data){  // Open file
     var nordeste = [nordeste0, nordeste1, nordeste2, nordeste3, nordeste4, nordeste5, nordeste6];
     var norte = [norte0, norte1, norte2, norte3, norte4, norte5, norte6];
 
-    console.log("TIPOS ZONA OESTE:")
-    console.log(soma0);
-    console.log(soma1);
-    console.log(soma2);
-    console.log(soma3);
-    console.log(soma4);
-    console.log(soma5);
-    console.log(soma6);
+    console.log("Norte")
+    console.log(pampulha1);
 
 
 
