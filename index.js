@@ -1,11 +1,12 @@
 var titulo = d3.select("h2")
                 .style("color", "blue")
-                .text("");
+                .text("BELO HORIZONTE");
 
 
         
-d3.csv("teste.csv").then(function(data){  // Open file
+d3.csv("teste.csv").then(function(data){  // Abre o arquivo
     
+    // Quantidade de acidente por regiao:
     var total0 = 0; // OESTE
     var total1 = 0; // VENDA NOVA
     var total2 = 0; // PAMPULHA
@@ -18,6 +19,7 @@ d3.csv("teste.csv").then(function(data){  // Open file
 
     var totaisvec = [total0, total1, total2, total3, total4, total5, total6, total7, total8]; // Total de acidentes por regiao
 
+    // Conta quantidade de acidentes por regiao:
     for(var counter = 0; counter < data.length; counter++) {
         if(data[counter].desc_regional == "OESTE"){
             total0 += 1;  
@@ -40,6 +42,7 @@ d3.csv("teste.csv").then(function(data){  // Open file
         }
     }
 
+    // Imprime a quantidade de acidentes no console (serve apenas para o desenvolvimento)
     console.log(total0);
     console.log(total1);
     console.log(total2);
@@ -50,96 +53,96 @@ d3.csv("teste.csv").then(function(data){  // Open file
     console.log(total7);
     console.log(total8);
 
-    // Tipos de acidented por regiao:
+    // Tipos de acidente por regiao:
+    var oeste0 = 0; // CHOQUE MECANICO COM VITIMA
+    var oeste1 = 0; // ABALROAMENTO COM VITIMA
+    var oeste2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var oeste3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var oeste4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var oeste5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var oeste6 = 0; // OUTROS COM VITIMA
 
-    // soma = OESTE
-    var soma0 = 0; // CHOQUE MECANICO COM VITIMA
-    var soma1 = 0; // ABALROAMENTO COM VITIMA
-    var soma2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
-    var soma3 = 0; // QUEDA DE PESSOA DE VEICULO
-    var soma4 = 0; // COLISAO DE VEICULOS COM VITIMA
-    var soma5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
-    var soma6 = 0; // OUTROS COM VITIMA
+    var vendanova0 = 0; // CHOQUE MECANICO COM VITIMA
+    var vendanova1 = 0; // ABALROAMENTO COM VITIMA
+    var vendanova2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var vendanova3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var vendanova4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var vendanova5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var vendanova6 = 0; // OUTROS COM VITIMA
 
-    var vendanova0 = 0;
-    var vendanova1 = 0;
-    var vendanova2 = 0;
-    var vendanova3 = 0;
-    var vendanova4 = 0;
-    var vendanova5 = 0;
-    var vendanova6 = 0;
+    var pampulha0 = 0; // CHOQUE MECANICO COM VITIMA
+    var pampulha1 = 0; // ABALROAMENTO COM VITIMA
+    var pampulha2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var pampulha3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var pampulha4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var pampulha5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var pampulha6 = 0; // OUTROS COM VITIMA
 
-    var pampulha0 = 0;
-    var pampulha1 = 0;
-    var pampulha2 = 0;
-    var pampulha3 = 0;
-    var pampulha4 = 0;
-    var pampulha5 = 0;
-    var pampulha6 = 0;
+    var centrosul0 = 0; // CHOQUE MECANICO COM VITIMA
+    var centrosul1 = 0; // ABALROAMENTO COM VITIMA
+    var centrosul2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var centrosul3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var centrosul4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var centrosul5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var centrosul6 = 0; // OUTROS COM VITIMA
 
-    var centrosul0 = 0;
-    var centrosul1 = 0;
-    var centrosul2 = 0;
-    var centrosul3 = 0;
-    var centrosul4 = 0;
-    var centrosul5 = 0;
-    var centrosul6 = 0;
+    var leste0 = 0; // CHOQUE MECANICO COM VITIMA
+    var leste1 = 0; // ABALROAMENTO COM VITIMA
+    var leste2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var leste3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var leste4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var leste5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var leste6 = 0; // OUTROS COM VITIMA
 
-    var leste0 = 0;
-    var leste1 = 0;
-    var leste2 = 0;
-    var leste3 = 0;
-    var leste4 = 0;
-    var leste5 = 0;
-    var leste6 = 0;
+    var barreiro0 = 0; // CHOQUE MECANICO COM VITIMA
+    var barreiro1 = 0; // ABALROAMENTO COM VITIMA
+    var barreiro2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var barreiro3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var barreiro4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var barreiro5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var barreiro6 = 0; // OUTROS COM VITIMA
 
-    var barreiro0 = 0;
-    var barreiro1 = 0;
-    var barreiro2 = 0;
-    var barreiro3 = 0;
-    var barreiro4 = 0;
-    var barreiro5 = 0;
-    var barreiro6 = 0;
+    var noroeste0 = 0; // CHOQUE MECANICO COM VITIMA
+    var noroeste1 = 0; // ABALROAMENTO COM VITIMA
+    var noroeste2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var noroeste3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var noroeste4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var noroeste5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var noroeste6 = 0; // OUTROS COM VITIMA
 
-    var noroeste0 = 0;
-    var noroeste1 = 0;
-    var noroeste2 = 0;
-    var noroeste3 = 0;
-    var noroeste4 = 0;
-    var noroeste5 = 0;
-    var noroeste6 = 0;
+    var nordeste0 = 0; // CHOQUE MECANICO COM VITIMA
+    var nordeste1 = 0; // ABALROAMENTO COM VITIMA
+    var nordeste2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var nordeste3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var nordeste4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var nordeste5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var nordeste6 = 0; // OUTROS COM VITIMA
 
-    var nordeste0 = 0;
-    var nordeste1 = 0;
-    var nordeste2 = 0;
-    var nordeste3 = 0;
-    var nordeste4 = 0;
-    var nordeste5 = 0;
-    var nordeste6 = 0;
+    var norte0 = 0; // CHOQUE MECANICO COM VITIMA
+    var norte1 = 0; // ABALROAMENTO COM VITIMA
+    var norte2 = 0; // ATROPELAMENTO DE PESSOA SEM VITIMA FATAL
+    var norte3 = 0; // QUEDA DE PESSOA DE VEICULO
+    var norte4 = 0; // COLISAO DE VEICULOS COM VITIMA
+    var norte5 = 0; // CAPOTAMENTO/TOMBAMENTO COM VITIMA
+    var norte6 = 0; // OUTROS COM VITIMA
 
-    var norte0 = 0;
-    var norte1 = 0;
-    var norte2 = 0;
-    var norte3 = 0;
-    var norte4 = 0;
-    var norte5 = 0;
-    var norte6 = 0;
 
+    // Conta quantos tipos de acidente houve em cada regiao
     for(var counter = 0; counter < data.length; counter++) { 
         if(data[counter].desc_regional == "OESTE" && data[counter].desc_tipo_acidente == "CHOQUEMECANICOCOMVITIMA"){                   // OESTE
-            soma0 += 1;
+            oeste0 += 1;
         } else if(data[counter].desc_regional == "OESTE" && data[counter].desc_tipo_acidente == "ABALROAMENTOCOMVITIMA") {
-            soma1 += 1;
+            oeste1 += 1;
         } else if(data[counter].desc_regional == "OESTE" && data[counter].desc_tipo_acidente == "ATROPELAMENTODEPESSOASEMVITIMAFATAL") {
-            soma2 +=1;
+            oeste2 +=1;
         } else if(data[counter].desc_regional == "OESTE" && data[counter].desc_tipo_acidente == "QUEDADEPESSOADEVEICULO") {
-            soma3 += 1;
+            oeste3 += 1;
         } else if(data[counter].desc_regional == "OESTE" && data[counter].desc_tipo_acidente == "COLISAODEVEICULOSCOMVITIMA") {
-            soma4 += 1;
+            oeste4 += 1;
         } else if(data[counter].desc_regional == "OESTE" && data[counter].desc_tipo_acidente == "CAPOTAMENTO/TOMBAMENTOCOMVITIMA") {
-            soma5 += 1;
+            oeste5 += 1;
         } else if(data[counter].desc_regional == "OESTE" && data[counter].desc_tipo_acidente == "OUTROSCOMVITIMA") {
-            soma6 += 1;
+            oeste6 += 1;
         } else if(data[counter].desc_regional == "VENDANOVA" && data[counter].desc_tipo_acidente == "CHOQUEMECANICOCOMVITIMA"){        // VENDA NOVA
             vendanova0 += 1;
         } else if(data[counter].desc_regional == "VENDANOVA" && data[counter].desc_tipo_acidente == "ABALROAMENTOCOMVITIMA") {
@@ -255,7 +258,7 @@ d3.csv("teste.csv").then(function(data){  // Open file
         }
     }
     
-    var soma = [soma0, soma1, soma2, soma3, soma4, soma5, soma6];
+    var oeste = [oeste0, oeste1, oeste2, oeste3, oeste4, oeste5, oeste6];
     var vendanova = [vendanova0, vendanova1, vendanova2, vendanova3, vendanova4, vendanova5, vendanova6];
     var pampulha = [pampulha0, pampulha1, pampulha2, pampulha3, pampulha4, pampulha5, pampulha6];
     var centrosul = [centrosul0, centrosul1, centrosul2, centrosul3, centrosul4, centrosul5, centrosul6];
@@ -265,9 +268,79 @@ d3.csv("teste.csv").then(function(data){  // Open file
     var nordeste = [nordeste0, nordeste1, nordeste2, nordeste3, nordeste4, nordeste5, nordeste6];
     var norte = [norte0, norte1, norte2, norte3, norte4, norte5, norte6];
 
+    // Imprime no console (apenas teste)
     console.log("Norte")
     console.log(pampulha1);
 
+    //criando um svg, área na qual o gráfico será feito
+    var width = "1000";
+    var height = "1000";
+    var canvas = d3.select("body")
+                    .append("svg")
+                    .attr("background-color", "cyan")
+                    .attr("margin-left", "auto")
+                    .attr("width", width)
+                    .attr("height", height);
 
+    // Adicionando a imagem SVG
+    var mapa = canvas.append("image")
+                        .attr("xlink:href", "bh2.svg");
+
+    // Atribuindo os nomes das regioes nos mapas
+    var line1 = canvas.append("text")
+                        .attr("x", "105")
+                        .attr("y", "60")
+                        .attr("fill", "blue")
+                        .text("Venda Nova");
+    
+    var line2 = canvas.append("text")
+                        .attr("x", "110")
+                        .attr("y", "150")
+                        .attr("fill", "blue")
+                        .text("Pampulha");
+                     
+    var line3 = canvas.append("text")
+                        .attr("x", "90")
+                        .attr("y", "240")
+                        .attr("fill", "blue")
+                        .text("Noroeste");
+
+    var line4 = canvas.append("text")
+                        .attr("x", "110")
+                        .attr("y", "295")
+                        .attr("fill", "white")
+                        .text("Oeste");
+                        
+    var line5 = canvas.append("text")
+                        .attr("x", "60")
+                        .attr("y", "380")
+                        .attr("fill", "blue")
+                        .text("Barreiro");
+
+    var line6 = canvas.append("text")
+                        .attr("x", "180")
+                        .attr("y", "295")
+                        .attr("fill", "blue")
+                        .text("Centro-Sul");
+
+    var line7 = canvas.append("text")
+                        .attr("x", "240")
+                        .attr("y", "240")
+                        .attr("fill", "blue")
+                        .text("Leste");
+
+    var line8 = canvas.append("text")
+                        .attr("x", "205")
+                        .attr("y", "90")
+                        .attr("fill", "blue")
+                        .text("Norte");
+
+    var line9 = canvas.append("text")
+                        .attr("x", "245")
+                        .attr("y", "138")
+                        .attr("fill", "blue")
+                        .text("Nordeste");
+
+    // Criando o Grafico
 
 })
