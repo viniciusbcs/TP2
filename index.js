@@ -1,6 +1,6 @@
 var titulo = d3.select("h2")
-.style("color", "blue")
-.text("Acidentes de trânsito em Belo Horizonte")        
+                .style("color", "blue")
+                .text("Acidentes de trânsito em Belo Horizonte (2015)")        
 
 d3.csv("teste.csv").then(function(data){  // Abre o arquivo
     
@@ -272,7 +272,23 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                         .attr("xlink:href", "bh2.svg");
    
     //geralGrafico(totaisvec);
-                  
+    
+    var line9 = canvas.append("text")
+                        .attr("class", "geral")
+                        .attr("x", "80")
+                        .attr("y", "550")
+                        .attr("fill", "blue")
+                        .text("Todas as Regiões")
+                        .on("mouseenter", function(d) {
+                            d3.select(this).attr("fill","red");
+                            deletatudo();
+                            deletageral();
+                        })
+                        .on("mouseout", function() {
+                            d3.select(this).attr("fill", "blue");
+                            geralGrafico(totaisvec);
+                        });
+
     // Atribuindo os nomes das regioes nos mapas
     var line1 = canvas.append("text")
                         .attr("class", "vendanova")
@@ -461,9 +477,17 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                                         .attr("fill", "blue")
                                         .on("mouseenter", function(d) {
                                             d3.select(this).attr("fill","red");
+                                            //poeLinha();
+                                            canvas.append("line")
+                                                .attr("x1", 430)
+                                                .attr("y1", 600 - widthScale(d))
+                                                .attr("x2", 1305)
+                                                .attr("y2", 600 - widthScale(d))
+                                                .attr("stroke", "red");                        
                                         })
                                         .on("mouseout", function() {
                                             d3.select(this).attr("fill", "blue");
+                                            d3.selectAll("line").remove();
                                         })
     
         var chart = canvas.append('g')
@@ -500,7 +524,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("x", 900)
                             .attr("y", 70)
                             .attr("text-anchor", "middle")
-                            .text("Acidentes com vítimas")
+                            .text("Acidentes com vítimas em BH (Todas as Regiões)")
             
     }
 
@@ -521,7 +545,14 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                                         .attr("fill", "blue")
                                         .on("mouseenter", function(d, i) {
                                             d3.select(this).attr("fill","red")
-                                            
+
+                                            canvas.append("line")
+                                                .attr("x1", 430)
+                                                .attr("y1", 600 - widthScale(d))
+                                                .attr("x2", 1255)
+                                                .attr("y2", 600 - widthScale(d))
+                                                .attr("stroke", "red");
+
                                             if(i == 0) {
                                                 d3.select("text.um").attr("fill", "red")
                                                                     .style("opacity", 1);
@@ -550,26 +581,28 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
 
                                             if(i == 0) {
                                                 d3.select("text.um").attr("fill", "blue")
-                                                                    .style("opacity", .4);
+                                                                    .style("opacity", .5);
                                             }else if(i == 1){
                                                 d3.select("text.dois").attr("fill", "blue")
-                                                                    .style("opacity", .4);
+                                                                    .style("opacity", .5);
                                             }else if(i == 2) {
                                                 d3.select("text.tres").attr("fill", "blue")
-                                                                        .style("opacity", .4);
+                                                                        .style("opacity", .5);
                                             }else if(i == 3) {
                                                 d3.select("text.quatro").attr("fill", "blue")
-                                                                        .style("opacity", .4);
+                                                                        .style("opacity", .5);
                                             }else if(i == 4) {
                                                 d3.select("text.cinco").attr("fill", "blue")
-                                                                        .style("opacity", .4);
+                                                                        .style("opacity", .5);
                                             }else if(i == 5) {
                                                 d3.select("text.seis").attr("fill", "blue")
-                                                                        .style("opacity", .4);
+                                                                        .style("opacity", .5);
                                             }else if(i==6) {
                                                 d3.select("text.sete").attr("fill", "blue")
-                                                                        .style("opacity", .4);
+                                                                        .style("opacity", .5);
                                             }  
+
+                                            d3.selectAll("line").remove();
                                         })
     
         var chart = canvas.append('g')
@@ -606,6 +639,8 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("y", 70)
                             .attr("text-anchor", "middle")
                             .text("Tipos de acidente " + nome)
+                                        
+        graficoGeralElements = graficoGeral.nodes();
 
         var tipo1 = canvas.append("text")
                             .attr("class", "um")
@@ -613,34 +648,38 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("y", "660")
                             .attr("fill", "blue")
                             .text("Tipo 1 -> CHOQUE MECANICO COM VÍTIMA")
-                            .style("opacity", .4)
+                            .style("opacity", .5)
                             .on("mouseenter", function(d, i) {
                                 d3.select(this).attr("fill","red")
                                 .text("Tipo 1 -> CHOQUE MECANICO COM VÍTIMA" + " = " + regiaobh[0] + " VÍTIMAS")
                                 .style("opacity", 1);
+                                d3.select(graficoGeralElements[0]).attr("fill", "red");
                             })
                             .on("mouseout", function(d, i) {
                                 d3.select(this).attr("fill", "blue")
                                 .text("Tipo 1 -> CHOQUE MECANICO COM VÍTIMA")
-                                .style("opacity", .4);
+                                .style("opacity", .5);
+                                d3.select(graficoGeralElements[0]).attr("fill", "blue");
                             })
-
+        
         var tipo2 = canvas.append("text")
                             .attr("class", "dois")
                             .attr("x", "400")
                             .attr("y", "690")
                             .attr("fill", "blue")
                             .text("Tipo 2 -> ABALROAMENTO COM VÍTIMA")
-                            .style("opacity", .4)
+                            .style("opacity", .5)
                             .on("mouseenter", function(d, i) {
                                 d3.select(this).attr("fill","red")
                                 .text("Tipo 2 -> ABALROAMENTO COM VÍTIMA" + " = " + regiaobh[1] + " VÍTIMAS")
                                 .style("opacity", 1);
+                                d3.select(graficoGeralElements[1]).attr("fill", "red");
                             })
                             .on("mouseout", function(d, i) {
                                 d3.select(this).attr("fill", "blue")
                                 .text("Tipo 2 -> ABALROAMENTO COM VÍTIMA")
-                                .style("opacity", .4);
+                                .style("opacity", .5);
+                                d3.select(graficoGeralElements[1]).attr("fill", "blue");
                             })
 
         var tipo3 = canvas.append("text")
@@ -649,16 +688,18 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("y", "720")
                             .attr("fill", "blue")
                             .text("Tipo 3 -> ATROPELAMENTO DE PESSOA SEM VÍTIMA FATAL")
-                            .style("opacity", .4)
+                            .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
                                 .text("Tipo 3 -> ATROPELAMENTO DE PESSOA SEM VÍTIMA FATAL" + " = " + regiaobh[2] + " VÍTIMAS")
                                 .style("opacity", 1);
+                                d3.select(graficoGeralElements[2]).attr("fill", "red");
                             })
                             .on("mouseout", function() {
                                 d3.select(this).attr("fill", "blue")
                                 .text("Tipo 3 -> ATROPELAMENTO DE PESSOA SEM VÍTIMA FATAL")
-                                .style("opacity", .4);
+                                .style("opacity", .5);
+                                d3.select(graficoGeralElements[2]).attr("fill", "blue");
                             })
         
         var tipo4 = canvas.append("text")
@@ -667,16 +708,18 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("y", "750")
                             .attr("fill", "blue")
                             .text("Tipo 4 -> QUEDA DE PESSOA DE VEICULO")
-                            .style("opacity", .4)
+                            .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
                                 .text("Tipo 4 -> QUEDA DE PESSOA DE VEICULO" + " = " + regiaobh[3] + " VÍTIMAS")
                                 .style("opacity", 1);
+                                d3.select(graficoGeralElements[3]).attr("fill", "red");
                             })
                             .on("mouseout", function() {
                                 d3.select(this).attr("fill", "blue")
                                 .text("Tipo 4 -> QUEDA DE PESSOA DE VEICULO")
-                                .style("opacity", .4);
+                                .style("opacity", .5);
+                                d3.select(graficoGeralElements[3]).attr("fill", "blue");
                             })
 
         var tipo5 = canvas.append("text")
@@ -685,16 +728,18 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("y", "660")
                             .attr("fill", "blue")
                             .text("Tipo 5 -> COLISAO DE VEICULOS COM VÍTIMA")
-                            .style("opacity", .4)
+                            .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
                                 .text("Tipo 5 -> COLISAO DE VEICULOS COM VÍTIMA" + " = " + regiaobh[4] + " VÍTIMAS")
                                 .style("opacity", 1);
+                                d3.select(graficoGeralElements[4]).attr("fill", "red");
                             })
                             .on("mouseout", function() {
                                 d3.select(this).attr("fill", "blue")
                                 .text("Tipo 5 -> COLISAO DE VEICULOS COM VÍTIMA")
-                                .style("opacity", .4);
+                                .style("opacity", .5);
+                                d3.select(graficoGeralElements[4]).attr("fill", "blue");
                             })
 
         var tipo6 = canvas.append("text")
@@ -703,16 +748,18 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("y", "690")
                             .attr("fill", "blue")
                             .text("Tipo 6 -> CAPOTAMENTO/TOMBAMENTO COM VÍTIMA")
-                            .style("opacity", .4)
+                            .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
                                 .text("Tipo 6 -> CAPOTAMENTO/TOMBAMENTO COM VÍTIMA" + " = " + regiaobh[5] + " VÍTIMAS")
                                 .style("opacity", 1);
+                                d3.select(graficoGeralElements[5]).attr("fill", "red");
                             })
                             .on("mouseout", function() {
                                 d3.select(this).attr("fill", "blue")
                                 .text("Tipo 6 -> CAPOTAMENTO/TOMBAMENTO COM VÍTIMA")
-                                .style("opacity", .4);
+                                .style("opacity", .5);
+                                d3.select(graficoGeralElements[5]).attr("fill", "blue");
                             })
 
         var tipo7 = canvas.append("text")
@@ -721,19 +768,18 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .attr("y", "720")
                             .attr("fill", "blue")
                             .text("Tipo 7 -> OUTROS COM VÍTIMA")
-                            .style("opacity", .4)
+                            .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
                                 .text("Tipo 7 -> OUTROS COM VÍTIMA" + " = " + regiaobh[6] + " VÍTIMAS")
                                 .style("opacity", 1);
+                                d3.select(graficoGeralElements[6]).attr("fill", "red");
                             })
                             .on("mouseout", function() {
                                 d3.select(this).attr("fill", "blue")
                                 .text("Tipo 7 -> OUTROS COM VÍTIMA")
-                                .style("opacity", .4);
+                                .style("opacity", .5);
+                                d3.select(graficoGeralElements[6]).attr("fill", "blue");
                             })
-
-
-    }
-     
+    }    
 })
