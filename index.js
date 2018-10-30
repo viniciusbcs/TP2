@@ -2,7 +2,7 @@ var titulo = d3.select("h2")
                 .style("color", "blue")
                 .text("Acidentes de trânsito em Belo Horizonte (2015)")        
 
-d3.csv("teste.csv").then(function(data){  // Abre o arquivo
+d3.csv("databh.csv").then(function(data){  // Abre o arquivo
     
     // Quantidade de acidente por regiao:
     var total0 = 0; // OESTE
@@ -14,33 +14,13 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
     var total6 = 0; // NOROESTE
     var total7 = 0; // NORDESTE
     var total8 = 0; // NORTE
-
-    // Conta quantidade de acidentes por regiao:
-    for(var counter = 0; counter < data.length; counter++) {
-        if(data[counter].desc_regional == "OESTE"){
-            total0 += 1;  
-        } else if(data[counter].desc_regional == "VENDANOVA"){
-            total1 += 1;
-        } else if(data[counter].desc_regional == "PAMPULHA"){
-            total2 += 1;
-        } else if(data[counter].desc_regional == "CENTRO-SUL"){
-            total3 += 1;
-        } else if(data[counter].desc_regional == "LESTE"){
-            total4 += 1;
-        } else if(data[counter].desc_regional == "BARREIRO"){
-            total5 += 1;
-        } else if(data[counter].desc_regional == "NOROESTE"){
-            total6 += 1;
-        } else if(data[counter].desc_regional == "NORDESTE"){
-            total7 += 1;
-        } else if(data[counter].desc_regional == "NORTE"){
-            total8 += 1;
-        }
-    }
-
+    
     // Total de acidentes por regiao
-    var totaisvec = [parseInt(total0), parseInt(total1), parseInt(total2), parseInt(total3), parseInt(total4), parseInt(total5), parseInt(total6), parseInt(total7), parseInt(total8)]; 
-
+    //var totaisvec = [parseInt(total0), parseInt(total1), parseInt(total2), parseInt(total3), parseInt(total4), parseInt(total5), parseInt(total6), parseInt(total7), parseInt(total8)]; 
+    console.log("Total antes da funcao");
+    console.log(totaisvec);
+    
+    
     // Tipos de acidente por regiao:
     var oeste0 = 0; // CHOQUE MECANICO COM VITIMA
     var oeste1 = 0; // ABALROAMENTO COM VITIMA
@@ -246,6 +226,22 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
         }
     }
     
+    // Somando os tipos de acidente por regiao
+    total0 = oeste0 + oeste1 + oeste2 + oeste3 + oeste4 + oeste5 + oeste6;
+    total1 = vendanova0 + vendanova1 + vendanova2 + vendanova3 + vendanova4 + vendanova5 + vendanova6;
+    total2 = pampulha0 + pampulha1 + pampulha2 + pampulha3 + pampulha4 + pampulha5 + pampulha6;
+    total3 = centrosul0 + centrosul1 + centrosul2 + centrosul3 + centrosul4 + centrosul5 + centrosul6;
+    total4 = leste0 + leste1 + leste2 + leste3 + leste4 + leste5 + leste6;
+    total5 = barreiro0 + barreiro1 + barreiro2 + barreiro3 + barreiro4 + barreiro5 + barreiro6;
+    total6 = noroeste0 + noroeste1 + noroeste2 + noroeste3 + nordeste4 + nordeste5 + nordeste6;
+    total7 = nordeste0 + nordeste1 + nordeste2 + nordeste3 + nordeste4 + nordeste5 + nordeste6;
+    total8 = norte0 + norte1 + norte2 + norte3 + norte4 + norte5 + norte6;
+    
+    // Vetor das somas que sera utilizado na funcao
+    var totaisvec = [total0, total1, total2, total3, total4, total5, total6, total7, total8];    
+    //console.log(totaisvec);
+    
+    // Vetor tipos de acidente por regiao
     var oeste = [parseInt(oeste0), parseInt(oeste1), parseInt(oeste2), parseInt(oeste3), parseInt(oeste4), parseInt(oeste5), parseInt(oeste6)];
     var vendanova = [parseInt(vendanova0), parseInt(vendanova1), parseInt(vendanova2), parseInt(vendanova3), parseInt(vendanova4), parseInt(vendanova5), parseInt(vendanova6)];
     var pampulha = [parseInt(pampulha0), parseInt(pampulha1), parseInt(pampulha2), parseInt(pampulha3), parseInt(pampulha4), parseInt(pampulha5), parseInt(pampulha6)];
@@ -269,10 +265,11 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
 
     // Adicionando a imagem SVG
     var mapa = canvas.append("image")
-                        .attr("xlink:href", "bh2.svg");
+                        .attr("xlink:href", "bh.svg");
    
     //geralGrafico(totaisvec);
     
+    // Nomes das regioes nos mapas:
     var line9 = canvas.append("text")
                         .attr("class", "geral")
                         .attr("x", "80")
@@ -289,7 +286,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             geralGrafico(totaisvec);
                         });
 
-    // Atribuindo os nomes das regioes nos mapas
+    // Atribuindo os nomes das regioes no mapa:
     var line1 = canvas.append("text")
                         .attr("class", "vendanova")
                         .attr("x", "105")
@@ -434,9 +431,11 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             tiposAcidente(nordeste, "Nordeste");
                         });
 
+    
+    // Função que renderiza o gráfico geral na tela
     geralGrafico(totaisvec)
 
-    //Funcao delete
+    // Função delete do gráfico de região (deleta o gráfico que está renderizado na tela)
     function deletatudo() {
         d3.selectAll("rect").remove();
         d3.selectAll("g").remove();
@@ -451,6 +450,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
         d3.select("text.vertical").remove();
     }
 
+    // Função delete do gráfico geral
     function deletageral() {
         d3.selectAll("rect.bargeral").remove();
         d3.selectAll("g.um").remove();
@@ -461,13 +461,15 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
     }
     
     // Grafico total de acientes (geral) por regiao: ************************************************************
-    function geralGrafico(totaisvec){
+    function geralGrafico(total){
+        // Escala do gráfico
         var widthScale = d3.scaleLinear()
                             .domain([0, 3000])
                             .range([0, 500]);
 
+        // Gráfico geral
         var graficoGeral = canvas.selectAll("rect")
-                                    .data(totaisvec)
+                                    .data(total)
                                     .enter().append("rect")
                                         .attr("class", "bargeral")
                                         .attr("height", function(d, i) {return widthScale(d)})
@@ -504,7 +506,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
 
         var xScale = d3.scaleBand()
                         .range([0, 900])
-                        .domain(["Venda Nova", "Pampulha","Norte", "Nordeste", "Noroeste", "Leste", "Oeste", "Centro-Sul", "Barreiro"])      
+                        .domain(["Oeste", "Venda Nova","Pampulha", "Centro-Sul", "Leste", "Barreiro", "Noroeste", "Nordeste", "Norte"])      
             
         var callX = chart.append('g')
                             .attr("class", "gtres")
@@ -528,7 +530,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
             
     }
 
-    // Tipos de acidente por regiao *********************************************************
+    // Tipos de acidente por regiao ************************************************************
     function tiposAcidente(regiaobh, nome) {
         var widthScale = d3.scaleLinear()
                             .domain([0, 1000])
@@ -651,7 +653,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .style("opacity", .5)
                             .on("mouseenter", function(d, i) {
                                 d3.select(this).attr("fill","red")
-                                .text("Tipo 1 -> CHOQUE MECANICO COM VÍTIMA" + " = " + regiaobh[0] + " VÍTIMAS")
+                                .text("Tipo 1 -> CHOQUE MECANICO COM VÍTIMA" + " = " + regiaobh[0] + " ACIDENTES")
                                 .style("opacity", 1);
                                 d3.select(graficoGeralElements[0]).attr("fill", "red");
                             })
@@ -671,7 +673,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .style("opacity", .5)
                             .on("mouseenter", function(d, i) {
                                 d3.select(this).attr("fill","red")
-                                .text("Tipo 2 -> ABALROAMENTO COM VÍTIMA" + " = " + regiaobh[1] + " VÍTIMAS")
+                                .text("Tipo 2 -> ABALROAMENTO COM VÍTIMA" + " = " + regiaobh[1] + " ACIDENTES")
                                 .style("opacity", 1);
                                 d3.select(graficoGeralElements[1]).attr("fill", "red");
                             })
@@ -691,7 +693,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
-                                .text("Tipo 3 -> ATROPELAMENTO DE PESSOA SEM VÍTIMA FATAL" + " = " + regiaobh[2] + " VÍTIMAS")
+                                .text("Tipo 3 -> ATROPELAMENTO DE PESSOA SEM VÍTIMA FATAL" + " = " + regiaobh[2] + " ACIDENTES")
                                 .style("opacity", 1);
                                 d3.select(graficoGeralElements[2]).attr("fill", "red");
                             })
@@ -711,7 +713,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
-                                .text("Tipo 4 -> QUEDA DE PESSOA DE VEICULO" + " = " + regiaobh[3] + " VÍTIMAS")
+                                .text("Tipo 4 -> QUEDA DE PESSOA DE VEICULO" + " = " + regiaobh[3] + " ACIDENTES")
                                 .style("opacity", 1);
                                 d3.select(graficoGeralElements[3]).attr("fill", "red");
                             })
@@ -731,7 +733,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
-                                .text("Tipo 5 -> COLISAO DE VEICULOS COM VÍTIMA" + " = " + regiaobh[4] + " VÍTIMAS")
+                                .text("Tipo 5 -> COLISAO DE VEICULOS COM VÍTIMA" + " = " + regiaobh[4] + " ACIDENTES")
                                 .style("opacity", 1);
                                 d3.select(graficoGeralElements[4]).attr("fill", "red");
                             })
@@ -751,7 +753,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
-                                .text("Tipo 6 -> CAPOTAMENTO/TOMBAMENTO COM VÍTIMA" + " = " + regiaobh[5] + " VÍTIMAS")
+                                .text("Tipo 6 -> CAPOTAMENTO/TOMBAMENTO COM VÍTIMA" + " = " + regiaobh[5] + " ACIDENTES")
                                 .style("opacity", 1);
                                 d3.select(graficoGeralElements[5]).attr("fill", "red");
                             })
@@ -771,7 +773,7 @@ d3.csv("teste.csv").then(function(data){  // Abre o arquivo
                             .style("opacity", .5)
                             .on("mouseenter", function(d) {
                                 d3.select(this).attr("fill","red")
-                                .text("Tipo 7 -> OUTROS COM VÍTIMA" + " = " + regiaobh[6] + " VÍTIMAS")
+                                .text("Tipo 7 -> OUTROS COM VÍTIMA" + " = " + regiaobh[6] + " ACIDENTES")
                                 .style("opacity", 1);
                                 d3.select(graficoGeralElements[6]).attr("fill", "red");
                             })
